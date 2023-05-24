@@ -10,6 +10,7 @@ import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -61,6 +62,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedFontSize = 0
     private var storedShowTabs = 0
 
+    companion object {
+        init {
+            System.loadLibrary("pro")
+        }
+
+        external fun getHelloWorldString(): String
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -77,6 +86,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             val dialogText = getString(R.string.upgraded_from_free_contacts, getString(R.string.phone_storage_hidden))
             ConfirmationDialog(this, dialogText, 0, R.string.ok, 0, false) {}
         }
+
+        Log.d("MAINACTIVITY", getHelloWorldString())
     }
 
     private fun checkContactPermissions() {
